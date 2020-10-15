@@ -1,31 +1,77 @@
-import { ADD_TODO, DELETE_TODO, COMPLETE_TODO } from "./types.js";
-import { templateToDo } from "./templateToDo.js";
+import {
+  ADD_TODO,
+  DELETE_TODO,
+  COMPLETE_TODO,
+  TOGGLE_TODO,
+  UNCOMPLETE_TODO,
+  ALL_TODO,
+} from "./types.js";
+import { combineReducers } from "redux";
 
-export function rootReducer(state = templateToDo, action) {
-  let newState = [];
-  console.log(state);
+const initialState = {
+  todos: [],
+};
+
+function todoReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_TODO:
-      newState = [...state];
-      console.log(newState);
-      newState.push(action);
-      return newState;
+      return {
+        ...state,
+        todos: [
+          ...state.todos,
+          {
+            id: action.payload.id,
+            text: action.payload.text,
+            completed: action.payload.completed,
+          },
+        ],
+      };
     case DELETE_TODO:
-      return state.filter((todo) => todo.payload.id !== action.payload.id);
-    case COMPLETE_TODO:
-      console.log("COMPLETED", state);
-      console.log("ACTION", action);
-      return state.map((todo) =>
-        todo.payload.id === action.payload.id
-          ? { todo, completed: !todo.completed }
-          : todo
-      );
+      return {
+        ...state,
+        todos: state.todos.filter((todo) => todo.id !== action.payload.id),
+      };
+    case TOGGLE_TODO:
+      return {
+        ...state,
+        todos: [
+          ...state.todos,
+          [action.payload.id],
+          {
+            id: action.payload.id,
+            completed: !action.payload.completed,
+          },
+        ],
+      };
+
     default:
       return state;
   }
 }
 
-/*
+function visabilityReducer(state = initialState, action) {
+  switch (action.type) {
+    case COMPLETE_TODO:
+      return {
+        ...state,
+        todos: action.payload.list,
+      };
+    case UNCOMPLETE_TODO:
+      return {
+        ...state,
+        todos: action.payload.list,
+      };
+    case ALL_TODO:
+      return {
+        ...state,
+        todos: action.payload.list,
+      };
+    default:
+      return state;
+  }
+}
 
-
-*/
+export default combineReducers({
+  todoReducer,
+  visabilityReducer,
+});

@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
-import { ToDoList } from "./react/components/ToDoList.js";
-import { ToDoAction } from "./react/components/ToDoAction.js";
+import ToDoList from "./react/components/ToDoList.js";
+import ToDoAction from "./react/components/ToDoAction.js";
 
 function App() {
   return (
