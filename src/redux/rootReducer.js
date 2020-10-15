@@ -46,20 +46,14 @@ export function rootReducer(state = initialState, action) {
         }),
       };
     case ALL_TODO:
-      return {
-        ...state,
-        todos: action.payload,
-      };
+      console.log("ALL STATE", state, " ACTION", action);
+      return { todos: action.payload };
     case UNCOMPLETE_TODO:
-      return {
-        ...state,
-        todos: action.payload,
-      };
+      console.log("UNCOMPLETE STATE", state, " ACTION", action);
+      return { todos: action.payload };
     case COMPLETE_TODO:
-      return {
-        ...state,
-        todos: action.payload,
-      };
+      console.log("COMPLETE STATE", state, " ACTION", action);
+      return { todos: action.payload };
 
     default:
       return state;
