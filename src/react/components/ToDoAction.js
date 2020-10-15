@@ -8,16 +8,13 @@ import { useHttp } from "../../api/http.hook.js";
 function ToDoAction() {
   const allStore = useSelector((state) => state.todos);
 
-  /*const completeStore = useSelector((state) =>
+  const completeStore = useSelector((state) =>
     state.todos.filter((todo) => todo.completed)
   );
 
   const uncompleteStore = useSelector((state) =>
     state.todos.filter((todo) => !todo.completed)
-  );*/
-  const completeStore = useSelector((state) => state.todos);
-
-  const uncompleteStore = useSelector((state) => state.todos);
+  );
 
   const [textToDo, setTextToDo] = useState("");
   let [idToDo, setidToDo] = useState(0);
@@ -33,13 +30,11 @@ function ToDoAction() {
   };
 
   const completedHandler = () => {
-    const newState = completeStore.filter((todo) => todo.completed);
-    dispatch(completedTodo(newState));
+    dispatch(completedTodo(completeStore));
   };
 
   const uncompletedHandler = () => {
-    const newState = uncompleteStore.filter((todo) => !todo.completed);
-    dispatch(unCompletedTodo(newState));
+    dispatch(unCompletedTodo(uncompleteStore));
   };
 
   const downloadTodoHandler = () => {
