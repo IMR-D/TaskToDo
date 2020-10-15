@@ -35,7 +35,7 @@ function todoReducer(state = initialState, action) {
       return {
         ...state,
         todos: [
-          ...state.todos.map((todo) => {
+          state.todos.map((todo) => {
             if (todo.id === action.payload.id) {
               return {
                 completed: !state.todos.completed,
