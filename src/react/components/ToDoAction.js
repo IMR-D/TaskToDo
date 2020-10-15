@@ -6,33 +6,46 @@ import { allViewTodo } from "../../redux/actions.js";
 import { unCompletedTodo } from "../../redux/actions.js";
 import { useHttp } from "../../api/http.hook.js";
 function ToDoAction() {
-  const valueStore = useSelector((state) => state.todoReducer.todos);
+  const allStore = useSelector((state) => state.todos);
+
+  /*const completeStore = useSelector((state) =>
+    state.todos.filter((todo) => todo.completed)
+  );
+
+  const uncompleteStore = useSelector((state) =>
+    state.todos.filter((todo) => !todo.completed)
+  );*/
+  const completeStore = useSelector((state) => state.todos);
+
+  const uncompleteStore = useSelector((state) => state.todos);
+
   const [textToDo, setTextToDo] = useState("");
-  let [idToDo, setidToDo] = useState(1);
+  let [idToDo, setidToDo] = useState(0);
   const dispatch = useDispatch();
   const { state } = useHttp();
-
   const addTodoHandler = () => {
-    dispatch(addTodo(idToDo++, textToDo));
+    dispatch(addTodo(++idToDo, textToDo));
     setidToDo(idToDo);
   };
 
   const allViewTodoHandler = () => {
-    dispatch(allViewTodo(valueStore));
+    dispatch(allViewTodo(allStore));
   };
 
   const completedHandler = () => {
-    const newState = valueStore.filter((todo) => todo.completed);
+    const newState = completeStore.filter((todo) => todo.completed);
     dispatch(completedTodo(newState));
   };
 
   const uncompletedHandler = () => {
-    const newState = valueStore.filter((todo) => !todo.completed);
+    const newState = uncompleteStore.filter((todo) => !todo.completed);
     dispatch(unCompletedTodo(newState));
   };
 
   const downloadTodoHandler = () => {
-    state.forEach((e, index) => dispatch(addTodo(idToDo++, state[index].text)));
+    state.forEach((e, index) =>
+      dispatch(addTodo(++idToDo, state[index].title))
+    );
     setidToDo(idToDo);
   };
 

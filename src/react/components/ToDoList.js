@@ -2,8 +2,7 @@ import React from "react";
 import ToDoItem from "./ToDoItem";
 import { useSelector } from "react-redux";
 const ToDoList = () => {
-  const valueStore = useSelector((state) => state.todoReducer.todos);
-  console.log(valueStore);
+  const valueStore = useSelector((state) => state.todos);
   return (
     <div className="row">
       {valueStore.map((todo) => {

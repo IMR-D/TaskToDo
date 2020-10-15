@@ -34,28 +34,22 @@ export function toggleTodo(id) {
     },
   };
 }
-export function allViewTodo(list) {
+export function allViewTodo(todos) {
   return {
     type: ALL_TODO,
-    payload: {
-      list,
-    },
+    payload: todos,
   };
 }
-export function completedTodo(list) {
+export function completedTodo(todos) {
   return {
     type: COMPLETE_TODO,
-    payload: {
-      list,
-    },
+    payload: todos,
   };
 }
 
-export function unCompletedTodo(list) {
+export function unCompletedTodo(todos) {
   return {
     type: UNCOMPLETE_TODO,
-    payload: {
-      list,
-    },
+    payload: todos,
   };
 }

@@ -8,9 +8,6 @@ export const useHttp = () => {
       "https://jsonplaceholder.typicode.com/todos?_start=0&_limit=5";
     axios.get(apiUrl).then((response) => {
       let data = response.data;
-      data = data.map((e) => {
-        return { text: e.title };
-      });
       setState(data);
     });
   }, [setState]);

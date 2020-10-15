@@ -2,13 +2,9 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteTodo } from "../../redux/actions.js";
 import { toggleTodo } from "../../redux/actions.js";
-import { useSelector } from "react-redux";
-import { createStore } from "redux";
-import reducer from "../../redux/rootReducer.js";
 
 const ToDoItem = ({ storeTodo }) => {
   const dispatch = useDispatch();
-  const valueStore = useSelector((state) => state.todoReducer.todos);
 
   const toggleHandler = () => {
     dispatch(toggleTodo(storeTodo.id));

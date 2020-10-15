@@ -6,13 +6,12 @@ import {
   UNCOMPLETE_TODO,
   ALL_TODO,
 } from "./types.js";
-import { combineReducers } from "redux";
 
 const initialState = {
   todos: [],
 };
 
-function todoReducer(state = initialState, action) {
+export function rootReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_TODO:
       return {
@@ -34,49 +33,35 @@ function todoReducer(state = initialState, action) {
     case TOGGLE_TODO:
       return {
         ...state,
-        todos: [
-          state.todos.map((todo) => {
-            if (todo.id === action.payload.id) {
-              return {
-                ...todo,
-                completed: !state.todos.completed,
-              };
-            } else
-              return {
-                ...todo,
-              };
-          }),
-        ],
-      };
-
-    default:
-      return state;
-  }
-}
-
-function visabilityReducer(state = initialState, action) {
-  switch (action.type) {
-    case COMPLETE_TODO:
-      return {
-        ...state,
-        todos: action.payload.list,
-      };
-    case UNCOMPLETE_TODO:
-      return {
-        ...state,
-        todos: action.payload.list,
+        todos: state.todos.map((todo) => {
+          if (todo.id === action.payload.id) {
+            return {
+              ...todo,
+              completed: !state.todos.completed,
+            };
+          } else
+            return {
+              ...todo,
+            };
+        }),
       };
     case ALL_TODO:
       return {
         ...state,
-        todos: action.payload.list,
+        todos: action.payload,
       };
+    case UNCOMPLETE_TODO:
+      return {
+        ...state,
+        todos: action.payload,
+      };
+    case COMPLETE_TODO:
+      return {
+        ...state,
+        todos: action.payload,
+      };
+
     default:
       return state;
   }
 }
-
-export default combineReducers({
-  todoReducer,
-  visabilityReducer,
-});
