@@ -1,17 +1,10 @@
-import {
-  ADD_TODO,
-  DELETE_TODO,
-  COMPLETE_TODO,
-  TOGGLE_TODO,
-  UNCOMPLETE_TODO,
-  ALL_TODO,
-} from "./types.js";
-
+import { ADD_TODO, DELETE_TODO, TOGGLE_TODO, SHOW_ALL,SET_VISIBILITY_FILTER } from "./types.js";
+import {combineReducers} from "redux";
 const initialState = {
   todos: [],
 };
 
-export function rootReducer(state = initialState, action) {
+ function todoReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_TODO:
       return {
@@ -45,17 +38,21 @@ export function rootReducer(state = initialState, action) {
             };
         }),
       };
-    case ALL_TODO:
-      console.log("ALL STATE", state, " ACTION", action);
-      return { todos: action.payload };
-    case UNCOMPLETE_TODO:
-      console.log("UNCOMPLETE STATE", state, " ACTION", action);
-      return { todos: action.payload };
-    case COMPLETE_TODO:
-      console.log("COMPLETE STATE", state, " ACTION", action);
-      return { todos: action.payload };
-
     default:
       return state;
   }
 }
+
+ function visibilityFilterReducer(state = SHOW_ALL, action) {
+  switch (action.type) {
+    case SET_VISIBILITY_FILTER:
+      return action.filter;
+    default:
+      return state;
+  }
+}
+
+export default combineReducers({
+  todoReducer,
+  visibilityFilterReducer
+})

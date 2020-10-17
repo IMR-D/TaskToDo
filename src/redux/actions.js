@@ -1,11 +1,4 @@
-import {
-  ADD_TODO,
-  DELETE_TODO,
-  COMPLETE_TODO,
-  UNCOMPLETE_TODO,
-  ALL_TODO,
-  TOGGLE_TODO,
-} from "./types.js";
+import { ADD_TODO, DELETE_TODO, TOGGLE_TODO } from "./types.js";
 
 export function addTodo(id, text) {
   return {
@@ -34,22 +27,8 @@ export function toggleTodo(id) {
     },
   };
 }
-export function allViewTodo(todos) {
-  return {
-    type: ALL_TODO,
-    payload: todos,
-  };
-}
-export function completedTodo(todos) {
-  return {
-    type: COMPLETE_TODO,
-    payload: todos,
-  };
-}
 
-export function unCompletedTodo(todos) {
-  return {
-    type: UNCOMPLETE_TODO,
-    payload: todos,
-  };
-}
+export const setVisibilityFilter = filter => ({
+  type: 'SET_VISIBILITY_FILTER',
+  filter
+})
